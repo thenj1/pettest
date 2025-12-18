@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  VISITED
+  NOT_VISITED
+  OWNER_NOT_PRESENT
+}
+
+enum TypeStatus {
+  AGENT
+  MANAGER
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  name  String
+  password String
+  type  TypeStatus @default(AGENT)
+  createdAt DateTime @default(now())
+
+  houses    House[]
+}
+
+model House {
+  id    Int @id @default(autoincrement())
+  ownerName String?
+  address String
+  number String
+  worms Boolean
+  lastVisit DateTime
+
+  ownerId Int?
+
+  owner User? @relation(fields: [ownerId], references: [id])
+}
