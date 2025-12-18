@@ -36,6 +36,8 @@ model House {
   number String
   worms Boolean
   lastVisit DateTime
+  createdAt DateTime @default(now())
+
 
   ownerId Int?
 

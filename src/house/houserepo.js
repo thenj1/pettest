@@ -30,7 +30,7 @@ const deleteHouse = async(id) => {
 
 const updateHouse = async(id, data) => {
     return await prisma.house.update(
-        {where : { id } , data}
+        {where : { id: Number(id) } , data}
     )
 }
 
