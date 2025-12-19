@@ -7,7 +7,7 @@ const FindAllUsers = async () => {
     const users = await userRepo.findAll();
 
     if( !users || users.length === 0 ){
-        throw new NotFoundError("Não possuí usuários");
+        throw new NotFoundError("Nenhum usuário cadastrado");
     
     }
 

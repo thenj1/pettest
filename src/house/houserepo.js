@@ -4,6 +4,14 @@ const findAll = async () => {
     return await prisma.house.findMany();
 }
 
+const findAllbyUser = async(ownerId) => {
+    return await prisma.house.findMany(
+        {where: {
+            ownerId : Number(ownerId)
+        }}
+    )
+}
+
 const findOne = async(filter) => {
     return await prisma.house.findFirst(
         {where :  filter }
@@ -38,6 +46,7 @@ module.exports = {
     findAll,
     findOne,
     findById,
+    findAllbyUser,
     createHouse,
     updateHouse,
     deleteHouse}
