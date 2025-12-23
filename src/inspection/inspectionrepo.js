@@ -4,7 +4,7 @@ const findAll = async () => {
     return await prisma.inspection.findMany();
 }
 
-const findAllbyUser = async(agentId) => {
+const findAllbyAgent = async(agentId) => {
     return await prisma.inspection.findMany(
         {where: {
             agentId : Number(agentId)
@@ -37,11 +37,6 @@ const createInspection = async(data) => {
     )
 }
 
-const deleteInspection = async(id) => {
-    return await prisma.inspection.delete(
-        {where: { id: Number(id) } }
-     )
-}
 
 const updateInspection = async(id, data) => {
     return await prisma.inspection.update(
@@ -53,8 +48,6 @@ module.exports = {
     findAll,
     findOne,
     findById,
-    findAllbyUser,
+    findAllbyAgent,
     findAllbyHouse,
-    createInspection,
-    updateInspection,
-    deleteInspection}
+    createInspection}

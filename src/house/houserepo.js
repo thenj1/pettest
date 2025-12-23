@@ -4,10 +4,10 @@ const findAll = async () => {
     return await prisma.house.findMany();
 }
 
-const findAllbyUser = async(ownerId) => {
+const findAllbyUser = async(agentId) => {
     return await prisma.house.findMany(
         {where: {
-            ownerId : Number(ownerId)
+            agentId : Number(agentId)
         }}
     )
 }
@@ -30,12 +30,6 @@ const createHouse = async(data) => {
     )
 }
 
-const deleteHouse = async(id) => {
-    return await prisma.house.delete(
-        {where: { id: Number(id) } }
-     )
-}
-
 const updateHouse = async(id, data) => {
     return await prisma.house.update(
         {where : { id: Number(id) } , data}
@@ -49,4 +43,4 @@ module.exports = {
     findAllbyUser,
     createHouse,
     updateHouse,
-    deleteHouse}
+    }

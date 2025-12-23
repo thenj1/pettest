@@ -1,8 +1,8 @@
 const houseRepo = require('./houserepo');
 const { NotFoundError, BadRequestError, ConflictError, UnauthorizedError } = require('../utils/error');
 
-const FindAllHouseByUser = async (ownerId) => {
-    const houses = await houseRepo.findAllbyUser(ownerId);
+const FindAllHouseByAgent = async (agentId) => {
+    const houses = await houseRepo.findAllbyUser(agentId);
     if ( !houses || houses.length === 0) {
         throw new NotFoundError("Usuário não possui casas cadastradas")
     }
@@ -37,17 +37,8 @@ const FindHouseByData = async (filter) => {
     return house;
 }
 
-const DeleteHouseById = async (id) => {
-    const existingHouse = await houseRepo.findById(id);
-    if( !existingHouse ) {
-        throw new NotFoundError("Casa não cadastrada")
-    }
-
-    return await houseRepo.deleteHouse(id);
-}
-
-const CreateNewHouse = async (data, userId) => {
-    const { ownerName ,address, number, worms, lastVisit } = data;
+const CreateNewHouse = async (data, agentId) => {
+    const { ownerName ,address, number } = data;
     const houseDuplicated = await houseRepo.findOne({ number , address });
     
     if( houseDuplicated ){
@@ -58,9 +49,7 @@ const CreateNewHouse = async (data, userId) => {
         ownerName,
         address,
         number,
-        worms, // 
-        lastVisit: lastVisit || new Date(), 
-        agentId: userId 
+        agentId: agentId 
     };
 
     const house = await houseRepo.createHouse(newHouseData);
@@ -68,7 +57,7 @@ const CreateNewHouse = async (data, userId) => {
 }
 
 const UpdateOneHouse = async (id, data) => {
-    const { ownerName ,address, number, worms, lastVisit } = data;
+    const { ownerName ,address, number } = data;
     const house = await houseRepo.findById(id);
     if ( !house ) {
         throw new NotFoundError("Casa não cadastrada")
@@ -78,8 +67,7 @@ const UpdateOneHouse = async (id, data) => {
         ownerName: ownerName || house.ownerName,
         address: address || house.address,
         number: number || house.number,
-        worms: worms !== undefined ? worms : house.worms,
-        lastVisit: lastVisit || house.lastVisit,
+
     }
 
     const houseUpdated = await houseRepo.updateHouse(id, updateData);
@@ -87,7 +75,7 @@ const UpdateOneHouse = async (id, data) => {
 }
 
 module.exports = {
-    FindAllHouseByUser,
+    FindAllHouseByAgent,
     FindAllHouse,
     FindHouseByData,
     FindHouseByid,

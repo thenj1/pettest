@@ -47,7 +47,7 @@ model House {
 model Inspection {
   id Int @id @default(autoincrement())
   worms Boolean
-  lastVisit DateTime @default(now())
+  visitedAt DateTime @default(now())
   createdAt DateTime @default(now())
   status Status 
 

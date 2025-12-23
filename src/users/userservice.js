@@ -34,15 +34,6 @@ const FindUserByData = async (filter) => {
     return user;
 }
 
-const DeleteUserById = async (id) => {
-    const existingUser = await userRepo.findById(id);
-    if (!existingUser) {
-        throw new NotFoundError("Usuário não encontrado para deleção");
-    }
-
-    return await userRepo.deleteUser(id);   
-}
-
 const CreateNewUser = async (data) => {
     const { email, name, password, type } = data;
     const userDuplicated = await userRepo.findOne({email});
@@ -122,7 +113,6 @@ module.exports = {
     FindAllUsers,
     FindUserById,
     FindUserByData,
-    DeleteUserById,
     CreateNewUser,
     UpdateOneUser,
     login
