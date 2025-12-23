@@ -60,7 +60,7 @@ const CreateNewHouse = async (data, userId) => {
         number,
         worms, // 
         lastVisit: lastVisit || new Date(), 
-        ownerId: userId 
+        agentId: userId 
     };
 
     const house = await houseRepo.createHouse(newHouseData);

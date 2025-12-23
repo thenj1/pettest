@@ -27,6 +27,7 @@ model User {
   createdAt DateTime @default(now())
 
   houses    House[]
+  inspections Inspection[]
 }
 
 model House {
@@ -34,12 +35,25 @@ model House {
   ownerName String?
   address String
   number String
-  worms Boolean
-  lastVisit DateTime
   createdAt DateTime @default(now())
 
 
-  ownerId Int?
+  agentId Int?
+  agent User? @relation(fields: [agentId], references: [id])
 
-  owner User? @relation(fields: [ownerId], references: [id])
+  inspections Inspection[]
+}
+
+model Inspection {
+  id Int @id @default(autoincrement())
+  worms Boolean
+  lastVisit DateTime @default(now())
+  createdAt DateTime @default(now())
+  status Status 
+
+  houseId Int
+  house House @relation(fields: [houseId], references: [id])
+
+  agentId Int
+  agent User @relation(fields: [agentId], references: [id])
 }
