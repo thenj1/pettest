@@ -80,6 +80,5 @@ module.exports = {
     FindHouseByData,
     FindHouseByid,
     CreateNewHouse,
-    DeleteHouseById,
     UpdateOneHouse
 }
